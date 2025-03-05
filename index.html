@@ -17,4 +17,30 @@
     <button id="addMemo">追加</button>
     <!--メモをリスト表示-->
     <ul id="memoList"></ul>
+    <script>
+        // ① ボタンと入力欄、リストを取得
+        const input = document.getElementById("memoInput");
+        const button = document.getElementById("addMemo");
+        const memoList = document.getElementById("memoList");
+
+        // ② ボタンがクリックされたら動くようにする
+        button.addEventListener("click", function() {
+            // ③ 入力されたテキストを取得
+            const text = input.value;
+
+            // ④ 入力欄が空だったら何もしない
+            if (text === "") {
+                return;     //以降の処理をスキップ
+            }
+
+            // 新しいメモを作成
+            const li = document.createElement("li");
+            li.textContent = text;
+
+            // リストに追加
+            memoList.appendChild(li);
+
+            input.value = ""; // 入力欄をリセット
+             });
+    </script>
 </body>
