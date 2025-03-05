@@ -18,9 +18,11 @@
     <!--メモをリスト表示-->
     <ul id="memoList"></ul>
     <script>
-        // ① ボタンと入力欄、リストを取得
+        // ① 入力欄を取得
         const input = document.getElementById("memoInput");
+        // ① ボタンを取得
         const button = document.getElementById("addMemo");
+        // ① リストを取得
         const memoList = document.getElementById("memoList");
 
         // ② ボタンがクリックされたら動くようにする
@@ -37,10 +39,23 @@
             const li = document.createElement("li");
             li.textContent = text;
 
+            // 削除ボタンを作成
+            const deleteButton = document.createElement("button");
+            deleteButton.textContent = "削除";
+
+            // <li> の中に削除ボタンを追加
+            li.appendChild(deleteButton);
+                
+            // 削除ボタンが押されたら<li>を削除
+                deleteButton.addEventListener("click", function() {
+                     li.remove();
+                });
+
             // リストに追加
             memoList.appendChild(li);
 
             input.value = ""; // 入力欄をリセット
              });
+
     </script>
 </body>
