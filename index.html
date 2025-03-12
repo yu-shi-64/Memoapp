@@ -69,7 +69,7 @@
                 editButton.addEventListener("click", function () {
 
                     //現在のテキストを入手し、ボタンを空白に変換後空白を削除
-                    const currentText = span.textContent;
+                    const currentText = li.firstChild.nodeValue.trim();
 
                     //入力フィールドを作成
                     const editInput = document.createElement("input");
@@ -90,10 +90,7 @@
 
                     //確定ボタンが押されたときの処理
                     confirmButton.addEventListener("click", function () {
-                        li.textContent = input.value; // 入力した値を適用
-                        span.textContent = editInput.value; //テキスト更新
-                        li.innerHTML = ""; // 中身をリセット
-                        li.appendChild(span);
+                        li.textContent = editInput.value; // 入力した値を適用
 
                         //編集ボタンを再度li内に入れる
                         li.appendChild(editButton);
