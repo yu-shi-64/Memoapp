@@ -26,7 +26,7 @@ li {
     align-items: center;
 }
 
-/* 削除ボタンのデザイン */
+/* 追加、削除ボタンのデザイン */
 button {
     background-color: red;
     color: white;
