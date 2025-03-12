@@ -45,12 +45,6 @@
             const li = document.createElement("li");
             li.textContent = text;
 
-            // テキストを表示する span を作成（ボタンを追加するときに消えないようにするため）
-            const span = document.createElement("span");
-            span.textContent = text;
-            li.appendChild(span);
-
-
             //編集ボタンを作成
             const editButton = document.createElement("button");
             editButton.textContent = "✏️";
