@@ -3,6 +3,7 @@
 <head>
     <!--文字コードを指定-->
     <meta charset="UTF-8">
+
     <!--画面サイズに合わせて表示を調節-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>メモアプリ</title>
@@ -12,22 +13,26 @@
     <!--見出しを表示-->
     <h1>メモアプリ</h1>
     <p>ここにメモを入力できます。</p>
+
      <!--入力欄を作成-->
     <input type="text" id="memoInput" placeholder="メモを入力">
+
     <!--メモの追加ボタンを作成-->
     <button id="addMemo">追加</button>
+
     <!--メモをリスト表示-->
     <ul id="memoList"></ul>
     <script>
-        // ① 入力欄を取得
+        // 入力欄を取得
         const input = document.getElementById("memoInput");
-        // ① ボタンを取得
+        // ボタンを取得
         const button = document.getElementById("addMemo");
-        // ① リストを取得
+        // リストを取得
         const memoList = document.getElementById("memoList");
 
         // ② ボタンがクリックされたら動くようにする
         button.addEventListener("click", function() {
+
             // ③ 入力されたテキストを取得
             const text = input.value;
 
@@ -40,20 +45,25 @@
             const li = document.createElement("li");
             li.textContent = text;
 
+            // テキストを表示する span を作成（ボタンを追加するときに消えないようにするため）
+            const span = document.createElement("span");
+            span.textContent = text;
+            li.appendChild(span);
+
+
             //編集ボタンを作成
             const editButton = document.createElement("button");
             editButton.textContent = "✏️";
             editButton.classList.add("edit-btn");
-
-            //<li> の中に編集ボタンを追加
-            li.appendChild(editButton);
-
-
             // 削除ボタンを作成
             const deleteButton = document.createElement("button");
             deleteButton.textContent = "🗑️";
             deleteButton.classList.add("delete-btn"); 
 
+            //リストに追加
+            memoList.appendChild(li);
+            //<li> の中に編集ボタンを追加
+            li.appendChild(editButton);
             // <li> の中に削除ボタンを追加
             li.appendChild(deleteButton);
                 
@@ -65,14 +75,14 @@
                 editButton.addEventListener("click", function () {
 
                     //現在のテキストを入手し、ボタンを空白に変換後空白を削除
-                    const currentText = li.textContent.replace("✏️", "").trim();
+                    const currentText = span.textContent;
 
                     //入力フィールドを作成
-                    const input = document.createElement("input");
+                    const editInput = document.createElement("input");
                     //普通のテキスト入力フィールドを指定
-                    input.type = "text";
+                    editInput.type = "text";
                     //取得したメモのテキストをinputにセット
-                    input.value = currentText; 
+                    editInput.value = currentText; 
 
                     //確定ボタンを作成
                     const confirmButton = document.createElement("button");
@@ -80,28 +90,29 @@
                     confirmButton.classList.add("confirm-btn");
 
                     //liの中身を一旦クリアする
-                    li.textContent = "";
-                    li.appendChild(input);
+                    li.innerHTML = "";
+                    li.appendChild(editInput);
                     li.appendChild(confirmButton);
 
                     //確定ボタンが押されたときの処理
                     confirmButton.addEventListener("click", function () {
                         li.textContent = input.value; // 入力した値を適用
+                        span.textContent = editInput.value; //テキスト更新
+                        li.innerHTML = ""; // 中身をリセット
+                        li.appendChild(span);
 
                         //編集ボタンを再度li内に入れる
                         li.appendChild(editButton);
 
                         //削除ボタンも元に戻す
                         li.appendChild(deleteButton);
+                        
                     });
+                });
 
-
-            // リストに追加
-            memoList.appendChild(li);
-
-            input.value = ""; // 入力欄をリセット
-             });
-
+            // 入力欄をクリア
+            input.value = "";
+        });
     </script>
 </body>
 </html>
