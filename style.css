@@ -26,14 +26,34 @@ li {
     align-items: center;
 }
 
+/* メモテキストのスタイル */
+.memo-text {
+    flex-grow: 1; /* テキスト部分を広げる */
+}
+
+/* ボタンコンテナのスタイル */
+.memo-buttons {
+    display: flex;
+    gap: 5px; /* ボタンの間隔 */
+}
+
 /* 追加ボタンのデザイン */
-button {
+#addMemo {
     background-color: red;
     color: white;
     border: none;
     padding: 5px 10px;
     cursor: pointer;
     border-radius: 3px;
+    margin-left: 5px;
 }
 
-
+/* 編集・削除ボタンのスタイル */
+.edit-btn, .delete-btn, .confirm-btn {
+    background-color: gray;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+}

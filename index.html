@@ -45,6 +45,15 @@
             const li = document.createElement("li");
             li.textContent = text;
 
+             // メモテキスト（span）
+            const memoText = document.createElement("span");
+            memoText.textContent = text;
+            memoText.classList.add("memo-text")
+
+            // ボタン用コンテナ
+            const buttonContainer = document.createElement("div");
+            buttonContainer.classList.add("memo-buttons");
+
             //編集ボタンを作成
             const editButton = document.createElement("button");
             editButton.textContent = "✏️";
@@ -54,12 +63,16 @@
             deleteButton.textContent = "🗑️";
             deleteButton.classList.add("delete-btn"); 
 
+            // ボタンをコンテナに追加
+            buttonContainer.appendChild(editButton);
+            buttonContainer.appendChild(deleteButton);
+
             //リストに追加
             memoList.appendChild(li);
-            //<li> の中に編集ボタンを追加
-            li.appendChild(editButton);
-            // <li> の中に削除ボタンを追加
-            li.appendChild(deleteButton);
+            //<li> の中にテキストを追加
+            li.appendChild(memoText);
+            // <li> の中に削除ボタンと編集ボタンを追加
+            li.appendChild(buttonContainer);
                 
             // 削除ボタンが押されたら<li>を削除
                 deleteButton.addEventListener("click", function() {
@@ -83,20 +96,19 @@
                     confirmButton.textContent = "✔️ 確定";
                     confirmButton.classList.add("confirm-btn");
 
-                    //liの中身を一旦クリアする
-                    li.innerHTML = "";
-                    li.appendChild(editInput);
-                    li.appendChild(confirmButton);
+                    // memoText を隠して入力フィールドに変更
+                    memoText.style.display = "none";
+                    li.insertBefore(editInput, buttonContainer);
+                    li.insertBefore(confirmButton, buttonContainer);
 
                     //確定ボタンが押されたときの処理
                     confirmButton.addEventListener("click", function () {
                         li.textContent = editInput.value; // 入力した値を適用
+                        memoText.style.display = "inline"; // 元の表示に戻す
 
-                        //編集ボタンを再度li内に入れる
-                        li.appendChild(editButton);
-
-                        //削除ボタンも元に戻す
-                        li.appendChild(deleteButton);
+                    // 入力フィールドと確定ボタンを削除
+                   editInput.remove();
+                   confirmButton.remove();    
                         
                     });
                 });
